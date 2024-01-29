@@ -1,15 +1,22 @@
+import express from "express";
 import { Client } from "discord.js";
 import { OpenAI } from "openai";
 import dotenv from "dotenv";
 
 dotenv.config();
 
+const app = express();
+
+const port = process.env.PORT || 4000;
+
 const client = new Client({
   intents: ["Guilds", "GuildMembers", "GuildMessages", "MessageContent"],
 });
 
 client.on("ready", () => {
-  console.log("The bot is online.");
+  app.listen(port, () => {
+    console.log(`Bot is running on port ${port}`);
+  });
 });
 
 const IGNORE_PREFIX = "!";
